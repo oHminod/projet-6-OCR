@@ -90,12 +90,12 @@ exports.supprimerSauce = (req, res, next) => {
         .then(sauce => {
             let userLike = sauce.usersLiked.indexOf(req.body.userId);
             let userDislike = sauce.usersDisliked.indexOf(req.body.userId);
-            if (req.body.like == '1') {
-                    sauce.usersLiked.push(req.body.userId);
-                    sauce.likes = sauce.usersLiked.length;
-                    SauceModel.updateOne({ _id: req.params.id }, sauce)
-                        .then(() => res.status(200).json({ message: 'Sauce likée !'}))
-                        .catch(error => res.status(400).json({ error }));
+            if (req.body.like == '1' && userLike == -1 && userDislike == -1) {
+                sauce.usersLiked.push(req.body.userId);
+                sauce.likes = sauce.usersLiked.length;
+                SauceModel.updateOne({ _id: req.params.id }, sauce)
+                    .then(() => res.status(200).json({ message: 'Sauce likée !'}))
+                    .catch(error => res.status(400).json({ error }));
             } else if (req.body.like == '0') {
                 if (userLike == -1 && userDislike != -1) {
                     sauce.usersDisliked.splice(userDislike, 1);
@@ -110,12 +110,12 @@ exports.supprimerSauce = (req, res, next) => {
                         .then(() => res.status(200).json({ message: 'Pas d\'avis sur la sauce !'}))
                         .catch(error => res.status(400).json({ error }));
                 }
-            } else if (req.body.like == '-1') {
-                    sauce.usersDisliked.push(req.body.userId);
-                    sauce.dislikes = sauce.usersDisliked.length;
-                    SauceModel.updateOne({ _id: req.params.id }, sauce)
-                        .then(() => res.status(200).json({ message: 'Sauce dislikée !'}))
-                        .catch(error => res.status(400).json({ error }));
+            } else if (req.body.like == '-1' && userLike == -1 && userDislike == -1) {
+                sauce.usersDisliked.push(req.body.userId);
+                sauce.dislikes = sauce.usersDisliked.length;
+                SauceModel.updateOne({ _id: req.params.id }, sauce)
+                    .then(() => res.status(200).json({ message: 'Sauce dislikée !'}))
+                    .catch(error => res.status(400).json({ error }));
             }
         })
         .catch( error => {

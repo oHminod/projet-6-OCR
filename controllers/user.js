@@ -6,7 +6,7 @@ require('dotenv').config();
 
 exports.userSignUp = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
-    req.body.email= cryptojs.SHA256(req.body.email, process.env.TOKEN).toString();
+    req.body.email= cryptojs.SHA3(req.body.email, process.env.TOKEN).toString();
     req.body.password = await bcrypt.hash(req.body.password, salt);
     const user = new UserModel({
         ...req.body
@@ -18,8 +18,11 @@ exports.userSignUp = async (req, res, next) => {
 
 exports.userLogIn = (req, res, next) => {
     const emailChiffre = cryptojs.SHA256(req.body.email, process.env.TOKEN).toString();
-    UserModel.findOne({ email : emailChiffre })
-        .then((user) => {
+    const emailChiffre3 = cryptojs.SHA3(req.body.email, process.env.TOKEN).toString();
+    UserModel.findOne({$or: [
+        { email : emailChiffre },
+        { email : emailChiffre3 }
+        ]}).then((user) => {
             if (!user) {
                 return res.status(401).json({message : "Utilisateur non trouvé!"});
             }else{
