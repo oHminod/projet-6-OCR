@@ -49,13 +49,7 @@ exports.modifierSauce = (req, res, next) => {
                             "host"
                         )}/images/${req.file.filename}`,
                     };
-                    SauceModel.updateOne({ _id: req.params.id }, sauce)
-                        .then(() =>
-                            res
-                                .status(200)
-                                .json({ message: "Sauce modifiée !" })
-                        )
-                        .catch((error) => res.status(400).json({ error }));
+                    updateLike(res, req, sauce, "Sauce modifiée !");
                 });
             })
             .catch((error) => {
@@ -68,9 +62,7 @@ exports.modifierSauce = (req, res, next) => {
         sauce = {
             ...req.body,
         };
-        SauceModel.updateOne({ _id: req.params.id }, sauce)
-            .then(() => res.status(200).json({ message: "Sauce modifiée !" }))
-            .catch((error) => res.status(400).json({ error }));
+        updateLike(res, req, sauce, "Sauce modifiée !");
     }
 };
 
@@ -105,24 +97,16 @@ exports.likerSauce = (req, res, next) => {
             if (req.body.like == "1" && userLike == -1 && userDislike == -1) {
                 sauce.usersLiked.push(req.body.userId);
                 sauce.likes = sauce.usersLiked.length;
-                updateLike(req.params.id, sauce, "Sauce likée !");
+                updateLike(res, req, sauce, "Sauce likée !");
             } else if (req.body.like == "0") {
                 if (userLike == -1 && userDislike != -1) {
                     sauce.usersDisliked.splice(userDislike, 1);
                     sauce.dislikes = sauce.usersDisliked.length;
-                    updateLike(
-                        req.params.id,
-                        sauce,
-                        "Pas d'avis sur la sauce !"
-                    );
+                    updateLike(res, req, sauce, "Pas d'avis sur la sauce !");
                 } else if (userLike != -1 && userDislike == -1) {
                     sauce.usersLiked.splice(userLike, 1);
                     sauce.likes = sauce.usersLiked.length;
-                    updateLike(
-                        req.params.id,
-                        sauce,
-                        "Pas d'avis sur la sauce !"
-                    );
+                    updateLike(res, req, sauce, "Pas d'avis sur la sauce !");
                 } else {
                     return res.status(400).json({ message: "Bad request" });
                 }
@@ -133,7 +117,7 @@ exports.likerSauce = (req, res, next) => {
             ) {
                 sauce.usersDisliked.push(req.body.userId);
                 sauce.dislikes = sauce.usersDisliked.length;
-                updateLike(req.params.id, sauce, "Sauce dislikée !");
+                updateLike(res, req, sauce, "Sauce dislikée !");
             } else {
                 return res.status(400).json({ message: "Bad request" });
             }
@@ -143,12 +127,8 @@ exports.likerSauce = (req, res, next) => {
         });
 };
 
-function updateLike(idSauce, sauce, message) {
-    return `SauceModel.updateOne({ _id: ${idSauce}}, ${sauce})
-            .then(() =>
-                res
-                    .status(200)
-                    .json({ message: "${message}" })
-            )
-            .catch((error) => res.status(400).json({ error }));`;
+function updateLike(res, req, sauce, message) {
+    SauceModel.updateOne({ _id: req.params.id }, sauce)
+        .then(() => res.status(200).json({ message: message }))
+        .catch((error) => res.status(400).json({ error }));
 }
