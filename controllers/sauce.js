@@ -1,18 +1,39 @@
 const SauceModel = require("../models/sauce");
 const fs = require("fs");
 
+/**
+ * * getAllSauces
+ * Fonction récupérant (read) toutes les sauces dans la BDD.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 exports.getAllSauces = (req, res, next) => {
     SauceModel.find()
         .then((sauces) => res.status(200).json(sauces))
         .catch((error) => res.status(400).json({ error }));
 };
 
+/**
+ * * getThisSauce
+ * Fonction récupérant (read) une sauce particulière dans la BDD.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 exports.getThisSauce = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
         .then((sauce) => res.status(200).json(sauce))
         .catch((error) => res.status(404).json({ error }));
 };
 
+/**
+ * * AjouterSauce
+ * Fonction pour créer (create) une sauce dans le BDD.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 exports.ajouterSauce = (req, res, next) => {
     const nouvelleSauce = JSON.parse(req.body.sauce);
     const sauce = new SauceModel({
@@ -31,6 +52,16 @@ exports.ajouterSauce = (req, res, next) => {
         .catch((error) => res.status(402).json({ error }));
 };
 
+/**
+ * * modifierSauce
+ * Fonction pour modifier (update) une sauce,
+ * en prenant garde de supprimer l'ancienne
+ * image si une nouvelle est importée.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 exports.modifierSauce = (req, res, next) => {
     const image = req.file;
     let sauce = new SauceModel();
@@ -66,6 +97,14 @@ exports.modifierSauce = (req, res, next) => {
     }
 };
 
+/**
+ * * supprimerSauce
+ * Fonction pour supprimer (delete) une sauce de la BDD,
+ * supprime également son image dans le file system.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 exports.supprimerSauce = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
         .then((sauce) => {
@@ -89,6 +128,13 @@ exports.supprimerSauce = (req, res, next) => {
         });
 };
 
+/**
+ * * likerSauce
+ * Fonction pour mettre à jour (update) les like d'une sauce.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 exports.likerSauce = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
         .then((sauce) => {
@@ -127,6 +173,14 @@ exports.likerSauce = (req, res, next) => {
         });
 };
 
+/**
+ * * updateLike
+ * Fonction pour mettre à jour (update) une sauce.
+ * @param {*} res
+ * @param {*} req
+ * @param {json} sauce Les données fournies par cet objet écraseront celles de la BDD
+ * @param {string} message Message de réussite
+ */
 function updateLike(res, req, sauce, message) {
     SauceModel.updateOne({ _id: req.params.id }, sauce)
         .then(() => res.status(200).json({ message: message }))

@@ -4,6 +4,13 @@ const jwt = require("jsonwebtoken");
 const cryptojs = require("crypto-js");
 require("dotenv").config();
 
+/**
+ * * userSignup
+ * Fonction pour ajouter un nouvel utilisateur à la BDD.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 exports.userSignUp = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     req.body.email = cryptojs
@@ -20,6 +27,16 @@ exports.userSignUp = async (req, res, next) => {
         .catch((error) => res.status(400).json({ error }));
 };
 
+/**
+ * * userLogin
+ * Fonction pour connecter un utilisateur au site.
+ * Une fois connecté, le browser de l'utilisateur
+ * possède un token contenant son ID de manière
+ * chiffrée.
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 exports.userLogIn = (req, res, next) => {
     const emailChiffre = cryptojs
         .SHA256(req.body.email, process.env.TOKEN)

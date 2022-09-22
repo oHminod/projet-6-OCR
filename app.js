@@ -8,6 +8,9 @@ const routes = require("./routes");
 const app = express();
 app.use(express.json());
 
+/**
+ * Connexion à la base de données.
+ */
 const mongoose = require("mongoose");
 mongoose
     .connect(
@@ -20,6 +23,9 @@ mongoose
     .then(() => console.log("Connexion à MongoDB réussie !"))
     .catch(() => console.log("Connexion à MongoDB échouée !"));
 
+/**
+ * Mise en place des Headers
+ */
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -33,6 +39,9 @@ app.use((req, res, next) => {
     next();
 });
 
+/**
+ * Emplacement du dossier images.
+ */
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/", routes);
 
