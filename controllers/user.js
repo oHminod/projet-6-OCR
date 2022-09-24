@@ -5,6 +5,17 @@ const cryptojs = require("crypto-js");
 require("dotenv").config();
 
 /**
+ * * verifEmail
+ * Fonction pour vérifier l'email.
+ * @param {string} string
+ * @returns bool
+ */
+function verifEmail(string) {
+    let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+    return re.test(string);
+}
+
+/**
  * * userSignup
  * Fonction pour ajouter un nouvel utilisateur à la BDD.
  * @param {*} req
@@ -12,6 +23,9 @@ require("dotenv").config();
  * @param {*} next
  */
 exports.userSignUp = async (req, res, next) => {
+    if (!verifEmail(req.body.email)) {
+        return res.status(400).json({ message: "Bad email string" });
+    }
     const salt = await bcrypt.genSalt(10);
     req.body.email = cryptojs
         .SHA3(req.body.email, process.env.TOKEN)
