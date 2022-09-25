@@ -20,6 +20,6 @@ router.get("/api/sauces/:id", sessionOk, sauce.getThisSauce);
 router.post("/api/sauces", sessionOk, multer, sauce.ajouterSauce);
 router.post("/api/sauces/:id/like", sessionOk, sauce.likerSauce);
 router.put("/api/sauces/:id", sessionOk, multer, sauce.modifierSauce);
-router.delete("/api/sauces/:id", sessionOk, multer, sauce.supprimerSauce);
+router.delete("/api/sauces/:id", sessionOk, sauce.supprimerSauce);
 
 module.exports = router;
