@@ -4,9 +4,9 @@ const fs = require("fs");
 /**
  * * getAllSauces
  * Fonction récupérant (read) toutes les sauces dans la BDD.
- * @param {*} req
- * @param {*} res
- * @param {*} next
+ * @param {json} req The req object represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on.
+ * @param {json} res The res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * @param {function} next The next function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
  */
 exports.getAllSauces = (req, res, next) => {
     SauceModel.find()
@@ -17,9 +17,9 @@ exports.getAllSauces = (req, res, next) => {
 /**
  * * getThisSauce
  * Fonction récupérant (read) une sauce particulière dans la BDD.
- * @param {*} req
- * @param {*} res
- * @param {*} next
+ * @param {json} req The req object represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on.
+ * @param {json} res The res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * @param {function} next The next function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
  */
 exports.getThisSauce = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
@@ -30,9 +30,9 @@ exports.getThisSauce = (req, res, next) => {
 /**
  * * AjouterSauce
  * Fonction pour créer (create) une sauce dans le BDD.
- * @param {*} req
- * @param {*} res
- * @param {*} next
+ * @param {json} req The req object represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on.
+ * @param {json} res The res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * @param {function} next The next function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
  */
 exports.ajouterSauce = (req, res, next) => {
     const nouvelleSauce = JSON.parse(req.body.sauce);
@@ -57,10 +57,9 @@ exports.ajouterSauce = (req, res, next) => {
  * Fonction pour modifier (update) une sauce,
  * en prenant garde de supprimer l'ancienne
  * image si une nouvelle est importée.
- * @param {*} req
- * @param {*} res
- * @param {*} next
- * @returns
+ * @param {json} req The req object represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on.
+ * @param {json} res The res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * @param {function} next The next function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
  */
 exports.modifierSauce = (req, res, next) => {
     const image = req.file;
@@ -101,9 +100,9 @@ exports.modifierSauce = (req, res, next) => {
  * * supprimerSauce
  * Fonction pour supprimer (delete) une sauce de la BDD,
  * supprime également son image dans le file system.
- * @param {*} req
- * @param {*} res
- * @param {*} next
+ * @param {json} req The req object represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on.
+ * @param {json} res The res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * @param {function} next The next function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
  */
 exports.supprimerSauce = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
@@ -131,9 +130,9 @@ exports.supprimerSauce = (req, res, next) => {
 /**
  * * likerSauce
  * Fonction pour mettre à jour (update) les like d'une sauce.
- * @param {*} req
- * @param {*} res
- * @param {*} next
+ * @param {json} req The req object represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on.
+ * @param {json} res The res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * @param {function} next The next function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
  */
 exports.likerSauce = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
@@ -176,8 +175,8 @@ exports.likerSauce = (req, res, next) => {
 /**
  * * updateLike
  * Fonction pour mettre à jour (update) une sauce.
- * @param {*} res
- * @param {*} req
+ * @param {json} res The res object represents the HTTP response that an Express app sends when it gets an HTTP request.
+ * @param {json} req The req object represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on.
  * @param {json} sauce Les données fournies par cet objet écraseront celles de la BDD
  * @param {string} message Message de réussite
  */
