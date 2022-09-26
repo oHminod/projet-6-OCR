@@ -66,11 +66,14 @@ exports.modifierSauce = (req, res, next) => {
     let sauce = new SauceModel();
     if (image) {
         const sauceRequete = JSON.parse(req.body.sauce);
-        if (sauceRequete.userId != req.session.userId) {
-            return res.status(401).json({ message: "Accès refusé !" });
-        }
         SauceModel.findOne({ _id: req.params.id })
             .then((sauceModifiee) => {
+                if (
+                    sauceModifiee.userId != req.session.userId ||
+                    req.body.userId != req.session.userId
+                ) {
+                    return res.status(401).json({ message: "Accès refusé !" });
+                }
                 const filename = sauceModifiee.imageUrl.split("/images/")[1];
                 fs.unlink(`images/${filename}`, () => {
                     sauce = {
@@ -86,13 +89,22 @@ exports.modifierSauce = (req, res, next) => {
                 res.status(500).json({ error });
             });
     } else {
-        if (req.body.userId != req.session.userId) {
-            return res.status(401).json({ message: "Accès refusé !" });
-        }
-        sauce = {
-            ...req.body,
-        };
-        updateLike(res, req, sauce, "Sauce modifiée !");
+        SauceModel.findOne({ _id: req.params.id })
+            .then((sauceDb) => {
+                if (
+                    sauceDb.userId != req.session.userId ||
+                    req.body.userId != req.session.userId
+                ) {
+                    return res.status(401).json({ message: "Accès refusé !" });
+                }
+                sauce = {
+                    ...req.body,
+                };
+                updateLike(res, req, sauce, "Sauce modifiée !");
+            })
+            .catch((error) => {
+                res.status(500).json({ error });
+            });
     }
 };
 
@@ -108,14 +120,14 @@ exports.supprimerSauce = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
         .then((sauce) => {
             if (sauce.userId != req.session.userId) {
-                res.status(401).json({ message: "Not authorized" });
+                return res.status(401).json({ message: "Accès refusé !" });
             } else {
                 const filename = sauce.imageUrl.split("/images/")[1];
                 fs.unlink(`images/${filename}`, () => {
                     SauceModel.deleteOne({ _id: req.params.id })
                         .then(() => {
                             res.status(200).json({
-                                message: "Objet supprimé !",
+                                message: "Sauce supprimée !",
                             });
                         })
                         .catch((error) => res.status(401).json({ error }));
@@ -137,6 +149,12 @@ exports.supprimerSauce = (req, res, next) => {
 exports.likerSauce = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
         .then((sauce) => {
+            if (
+                sauce.userId != req.session.userId ||
+                req.body.userId != req.session.userId
+            ) {
+                return res.status(401).json({ message: "Accès refusé !" });
+            }
             let userLike = sauce.usersLiked.indexOf(req.body.userId);
             let userDislike = sauce.usersDisliked.indexOf(req.body.userId);
             if (req.body.like == "1" && userLike == -1 && userDislike == -1) {

@@ -5,17 +5,6 @@ const cryptojs = require("crypto-js");
 require("dotenv").config();
 
 /**
- * * verifEmail
- * Fonction pour vérifier l'email.
- * @param {string} string
- * @returns bool
- */
-function verifEmail(string) {
-    let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
-    return re.test(string);
-}
-
-/**
  * * userSignup
  * Fonction pour ajouter un nouvel utilisateur à la BDD.
  * @param {json} req The req object represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on.
@@ -23,9 +12,6 @@ function verifEmail(string) {
  * @param {function} next The next function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
  */
 exports.userSignUp = async (req, res, next) => {
-    if (!verifEmail(req.body.email)) {
-        return res.status(400).json({ message: "Bad email string" });
-    }
     const salt = await bcrypt.genSalt(10);
     req.body.email = cryptojs
         .SHA3(req.body.email, process.env.TOKEN)
@@ -79,7 +65,7 @@ exports.userLogIn = (req, res, next) => {
                                 userId: user._id,
                                 token: jwt.sign(
                                     { userId: user._id },
-                                    `${process.env.TOKEN}`,
+                                    process.env.TOKEN,
                                     {
                                         expiresIn: "24h",
                                     }

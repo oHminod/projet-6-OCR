@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const sessionOk = require("./middleware/session");
 const multer = require("./middleware/multer-config");
+const verifEmail = require("./middleware/verifEmail");
 
 const user = require("./controllers/user");
 const sauce = require("./controllers/sauce");
@@ -9,7 +10,7 @@ const sauce = require("./controllers/sauce");
 /**
  * * Routes utilisateurs
  */
-router.post("/api/auth/signup", user.userSignUp);
+router.post("/api/auth/signup", verifEmail, user.userSignUp);
 router.post("/api/auth/login", user.userLogIn);
 
 /**
