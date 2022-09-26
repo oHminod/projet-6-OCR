@@ -67,14 +67,14 @@ exports.modifierSauce = (req, res, next) => {
     if (image) {
         const sauceRequete = JSON.parse(req.body.sauce);
         SauceModel.findOne({ _id: req.params.id })
-            .then((sauceModifiee) => {
+            .then((sauceDb) => {
                 if (
-                    sauceModifiee.userId != req.session.userId ||
-                    req.body.userId != req.session.userId
+                    sauceDb.userId != req.session.userId ||
+                    sauceRequete.userId != req.session.userId
                 ) {
-                    return res.status(401).json({ message: "Accès refusé !" });
+                    return res.status(401).json({ message: "Accès refusé 1!" });
                 }
-                const filename = sauceModifiee.imageUrl.split("/images/")[1];
+                const filename = sauceDb.imageUrl.split("/images/")[1];
                 fs.unlink(`images/${filename}`, () => {
                     sauce = {
                         ...sauceRequete,
