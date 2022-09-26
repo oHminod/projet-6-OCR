@@ -6,10 +6,6 @@ const MIME_TYPES = {
     "image/png": "png",
 };
 
-/**
- * Middleware de gestion des images envoyée
- * par les formulaires.
- */
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, "images");
@@ -21,4 +17,8 @@ const storage = multer.diskStorage({
     },
 });
 
+/**
+ * Middleware de gestion des images envoyée
+ * par les formulaires.
+ */
 module.exports = multer({ storage }).single("image");
