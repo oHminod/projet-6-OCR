@@ -15,7 +15,7 @@ const sauceModel = mongoose.Schema({
 });
 
 /**
- * * sauce :
+ * * sauceModel :
  * Modèle de données d'une sauce.
  */
 module.exports = mongoose.model("SauceModel", sauceModel);
