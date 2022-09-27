@@ -5,7 +5,7 @@ const cryptojs = require("crypto-js");
 require("dotenv").config();
 
 /**
- * * userSignup
+ * * userSignup :
  * Fonction pour ajouter un nouvel utilisateur à la BDD.
  * @param {json} req The req object represents the HTTP request and
  * has properties for the request query string, parameters, body,
@@ -33,7 +33,7 @@ exports.userSignUp = async (req, res, next) => {
 };
 
 /**
- * * userLogin
+ * * userLogin :
  * Fonction pour connecter un utilisateur au site.
  * Une fois connecté, le browser de l'utilisateur
  * possède un token contenant son ID de manière

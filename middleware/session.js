@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 /**
+ * * session :
  * Middleware de validation de session (Auth) :
  * ajoute l'id de l'utilisateur à la requête
  * à partir du token créé à la connexion

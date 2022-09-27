@@ -1,5 +1,5 @@
 /**
- * * verifEmail
+ * * verifEmail :
  * Middleware pour vérifier la validité de l'email.
  * @param {string} string
  */

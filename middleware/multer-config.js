@@ -18,6 +18,7 @@ const storage = multer.diskStorage({
 });
 
 /**
+ * * multer-config :
  * Middleware de gestion des images envoyée
  * par les formulaires.
  */

@@ -8,6 +8,7 @@ const userModel = mongoose.Schema({
 userModel.plugin(uniqueInDB);
 
 /**
+ * * user :
  * Modèle de données d'un utilisateur.
  */
 module.exports = mongoose.model("UserModel", userModel);

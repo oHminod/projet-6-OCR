@@ -8,13 +8,13 @@ const user = require("./controllers/user");
 const sauce = require("./controllers/sauce");
 
 /**
- * * Routes utilisateurs
+ * * Routes utilisateurs :
  */
 router.post("/api/auth/signup", verifEmail, user.userSignUp);
 router.post("/api/auth/login", user.userLogIn);
 
 /**
- * * Routes sauces
+ * * Routes sauces :
  */
 router.get("/api/sauces", sessionOk, sauce.getAllSauces);
 router.get("/api/sauces/:id", sessionOk, sauce.getThisSauce);

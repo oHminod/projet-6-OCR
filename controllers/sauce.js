@@ -2,7 +2,7 @@ const SauceModel = require("../models/sauce");
 const fs = require("fs");
 
 /**
- * * getAllSauces
+ * * getAllSauces :
  * Fonction récupérant (read) toutes les sauces dans la BDD.
  * @param {json} req The req object represents the HTTP
  * request and has properties for the request query string,
@@ -21,7 +21,7 @@ exports.getAllSauces = (req, res, next) => {
 };
 
 /**
- * * getThisSauce
+ * * getThisSauce :
  * Fonction récupérant (read) une sauce particulière
  * dans la BDD.
  * @param {json} req The req object represents the HTTP
@@ -41,7 +41,7 @@ exports.getThisSauce = (req, res, next) => {
 };
 
 /**
- * * AjouterSauce
+ * * AjouterSauce :
  * Fonction pour créer (create) une sauce dans le BDD.
  * @param {json} req The req object represents the HTTP request and has
  * properties for the request query string, parameters, body, HTTP headers,
@@ -71,7 +71,7 @@ exports.ajouterSauce = (req, res, next) => {
 };
 
 /**
- * * modifierSauce
+ * * modifierSauce :
  * Fonction pour modifier (update) une sauce,
  * en prenant garde de supprimer l'ancienne
  * image si une nouvelle est importée.
@@ -131,7 +131,7 @@ exports.modifierSauce = (req, res, next) => {
 };
 
 /**
- * * supprimerSauce
+ * * supprimerSauce :
  * Fonction pour supprimer (delete) une sauce de la BDD,
  * supprime également son image dans le file system.
  * @param {json} req The req object represents the HTTP request and has
@@ -167,7 +167,7 @@ exports.supprimerSauce = (req, res, next) => {
 };
 
 /**
- * * likerSauce
+ * * likerSauce :
  * Fonction pour mettre à jour (update) les like d'une sauce.
  * @param {json} req The req object represents the HTTP request and has
  * properties for the request query string, parameters, body, HTTP headers,
@@ -223,7 +223,7 @@ exports.likerSauce = (req, res, next) => {
 };
 
 /**
- * * updateLike
+ * * updateLike :
  * Fonction pour mettre à jour (update) une sauce.
  * @param {json} res The res object represents the HTTP response
  * that an Express app sends when it gets an HTTP request.
