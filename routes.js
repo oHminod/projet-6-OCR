@@ -4,6 +4,9 @@ const sessionOk = require("./middleware/session");
 const multer = require("./middleware/multer-config");
 const verifEmail = require("./middleware/verifEmail");
 const { xss } = require("express-xss-sanitizer");
+// const options = {
+//     allowedKeys: ["description"],
+// };
 
 const user = require("./controllers/user");
 const sauce = require("./controllers/sauce");
@@ -19,9 +22,9 @@ router.post("/api/auth/login", user.userLogIn);
  */
 router.get("/api/sauces", sessionOk, sauce.getAllSauces);
 router.get("/api/sauces/:id", sessionOk, sauce.getThisSauce);
-router.post("/api/sauces", sessionOk, multer, xss(), sauce.ajouterSauce);
+router.post("/api/sauces", sessionOk, xss(), multer, sauce.ajouterSauce);
 router.post("/api/sauces/:id/like", sessionOk, sauce.likerSauce);
-router.put("/api/sauces/:id", sessionOk, multer, xss(), sauce.modifierSauce);
+router.put("/api/sauces/:id", sessionOk, xss(), multer, sauce.modifierSauce);
 router.delete("/api/sauces/:id", sessionOk, sauce.supprimerSauce);
 
 module.exports = router;
