@@ -181,14 +181,9 @@ exports.supprimerSauce = (req, res, next) => {
 exports.likerSauce = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
         .then((sauce) => {
-            if (
-                sauce.userId != req.session.userId ||
-                req.body.userId != req.session.userId
-            ) {
-                return res.status(401).json({ message: "Accès refusé !" });
-            }
             let userLike = sauce.usersLiked.indexOf(req.body.userId);
             let userDislike = sauce.usersDisliked.indexOf(req.body.userId);
+
             if (req.body.like == "1" && userLike == -1 && userDislike == -1) {
                 sauce.usersLiked.push(req.body.userId);
                 sauce.likes = sauce.usersLiked.length;
