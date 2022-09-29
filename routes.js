@@ -8,23 +8,30 @@ const { xss } = require("express-xss-sanitizer");
 //     allowedKeys: ["description"],
 // };
 
-const user = require("./controllers/user");
-const sauce = require("./controllers/sauce");
+const userSignUp = require("./controllers/userSignUp");
+const userLogin = require("./controllers/userLogin");
+
+const getAllSauces = require("./controllers/getAllSauces");
+const getThisSauce = require("./controllers/getThisSauce");
+const ajouterSauce = require("./controllers/ajouterSauce");
+const modifierSauce = require("./controllers/modifierSauce");
+const likerSauce = require("./controllers/likerSauce");
+const supprimerSauce = require("./controllers/supprimerSauce");
 
 /**
  * * Routes utilisateurs :
  */
-router.post("/api/auth/signup", verifEmail, user.userSignUp);
-router.post("/api/auth/login", user.userLogIn);
+router.post("/api/auth/signup", verifEmail, userSignUp);
+router.post("/api/auth/login", userLogin);
 
 /**
  * * Routes sauces :
  */
-router.get("/api/sauces", sessionOk, sauce.getAllSauces);
-router.get("/api/sauces/:id", sessionOk, sauce.getThisSauce);
-router.post("/api/sauces", sessionOk, xss(), multer, sauce.ajouterSauce);
-router.post("/api/sauces/:id/like", sessionOk, sauce.likerSauce);
-router.put("/api/sauces/:id", sessionOk, xss(), multer, sauce.modifierSauce);
-router.delete("/api/sauces/:id", sessionOk, sauce.supprimerSauce);
+router.get("/api/sauces", sessionOk, getAllSauces);
+router.get("/api/sauces/:id", sessionOk, getThisSauce);
+router.post("/api/sauces", sessionOk, xss(), multer, ajouterSauce);
+router.put("/api/sauces/:id", sessionOk, xss(), multer, modifierSauce);
+router.post("/api/sauces/:id/like", sessionOk, likerSauce);
+router.delete("/api/sauces/:id", sessionOk, supprimerSauce);
 
 module.exports = router;
