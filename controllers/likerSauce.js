@@ -1,5 +1,5 @@
 const SauceModel = require("../models/sauce");
-const updateLike = require("./helpers/updateLike");
+const updateSauce = require("./helpers/updateSauce");
 
 /**
  * * likerSauce :
@@ -22,16 +22,16 @@ module.exports = (req, res, next) => {
             if (req.body.like == "1" && userLike == -1 && userDislike == -1) {
                 sauce.usersLiked.push(req.body.userId);
                 sauce.likes = sauce.usersLiked.length;
-                updateLike(req, res, sauce, "Sauce likée !");
+                updateSauce(req, res, sauce, "Sauce likée !");
             } else if (req.body.like == "0") {
                 if (userLike == -1 && userDislike != -1) {
                     sauce.usersDisliked.splice(userDislike, 1);
                     sauce.dislikes = sauce.usersDisliked.length;
-                    updateLike(req, res, sauce, "Pas d'avis sur la sauce !");
+                    updateSauce(req, res, sauce, "Pas d'avis sur la sauce !");
                 } else if (userLike != -1 && userDislike == -1) {
                     sauce.usersLiked.splice(userLike, 1);
                     sauce.likes = sauce.usersLiked.length;
-                    updateLike(req, res, sauce, "Pas d'avis sur la sauce !");
+                    updateSauce(req, res, sauce, "Pas d'avis sur la sauce !");
                 } else {
                     return res.status(400).json({ message: "Bad request" });
                 }
@@ -42,7 +42,7 @@ module.exports = (req, res, next) => {
             ) {
                 sauce.usersDisliked.push(req.body.userId);
                 sauce.dislikes = sauce.usersDisliked.length;
-                updateLike(req, res, sauce, "Sauce dislikée !");
+                updateSauce(req, res, sauce, "Sauce dislikée !");
             } else {
                 return res.status(400).json({ message: "Bad request" });
             }

@@ -1,5 +1,5 @@
 const SauceModel = require("../models/sauce");
-const updateLike = require("./helpers/updateLike");
+const updateSauce = require("./helpers/updateSauce");
 const fs = require("fs");
 
 /**
@@ -26,7 +26,7 @@ module.exports = (req, res, next) => {
                     sauceDb.userId != req.session.userId ||
                     sauceRequete.userId != req.session.userId
                 ) {
-                    return res.status(401).json({ message: "Accès refusé 1!" });
+                    return res.status(401).json({ message: "Accès refusé !" });
                 }
                 const filename = sauceDb.imageUrl.split("/images/")[1];
                 fs.unlink(`images/${filename}`, () => {
@@ -36,7 +36,7 @@ module.exports = (req, res, next) => {
                             "host"
                         )}/images/${req.file.filename}`,
                     };
-                    updateLike(req, res, sauce, "Sauce modifiée !");
+                    updateSauce(req, res, sauce, "Sauce modifiée !");
                 });
             })
             .catch((error) => {
@@ -54,7 +54,7 @@ module.exports = (req, res, next) => {
                 sauce = {
                     ...req.body,
                 };
-                updateLike(req, res, sauce, "Sauce modifiée !");
+                updateSauce(req, res, sauce, "Sauce modifiée !");
             })
             .catch((error) => {
                 res.status(500).json({ error });

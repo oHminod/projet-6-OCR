@@ -1,7 +1,7 @@
 const SauceModel = require("../../models/sauce");
 
 /**
- * * updateLike :
+ * * updateSauce :
  * Fonction pour mettre à jour (update) une sauce.
  * @param {json} req The req object represents the HTTP request
  * and has properties for the request query string, parameters,
