@@ -1,3 +1,4 @@
+const ApiError = require("../../error/ApiError");
 const SauceModel = require("../../models/sauce");
 
 /**
@@ -16,5 +17,7 @@ const SauceModel = require("../../models/sauce");
 module.exports = (req, res, next) => {
     SauceModel.find()
         .then((sauces) => res.status(200).json(sauces))
-        .catch((error) => res.status(400).json({ error }));
+        .catch((error) => {
+            return next(ApiError.badRequest(error));
+        });
 };

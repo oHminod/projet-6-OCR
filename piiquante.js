@@ -3,6 +3,7 @@ const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 const helmet = require("helmet");
+const errorHandler = require("./error/error-handler");
 
 const routes = require("./routes");
 
@@ -53,4 +54,5 @@ piiquante.use("/images", express.static(path.join(__dirname, "images")));
 piiquante.use(helmet());
 piiquante.use("/", routes);
 
+piiquante.use(errorHandler);
 module.exports = piiquante;

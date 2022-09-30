@@ -1,3 +1,4 @@
+const ApiError = require("../../error/ApiError");
 const SauceModel = require("../../models/sauce");
 
 /**
@@ -17,5 +18,7 @@ const SauceModel = require("../../models/sauce");
 module.exports = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
         .then((sauce) => res.status(200).json(sauce))
-        .catch((error) => res.status(404).json({ error }));
+        .catcg((error) => {
+            return next(ApiError.notFound(error));
+        });
 };

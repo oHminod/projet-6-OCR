@@ -1,3 +1,4 @@
+const ApiError = require("../../error/ApiError");
 const SauceModel = require("../../models/sauce");
 const updateSauce = require("../helpers/updateSauce");
 
@@ -32,8 +33,6 @@ module.exports = (req, res, next) => {
                     sauce.usersLiked.splice(userLike, 1);
                     sauce.likes = sauce.usersLiked.length;
                     updateSauce(req, res, sauce, "Pas d'avis sur la sauce !");
-                } else {
-                    return res.status(400).json({ message: "Bad request" });
                 }
             } else if (
                 req.body.like == "-1" &&
@@ -44,10 +43,10 @@ module.exports = (req, res, next) => {
                 sauce.dislikes = sauce.usersDisliked.length;
                 updateSauce(req, res, sauce, "Sauce dislikée !");
             } else {
-                return res.status(400).json({ message: "Bad request" });
+                return next(ApiError.badRequest("Bad request"));
             }
         })
         .catch((error) => {
-            res.status(500).json({ error });
+            return next(ApiError.internal(error));
         });
 };

@@ -1,5 +1,6 @@
 const SauceModel = require("../../models/sauce");
 const fs = require("fs");
+const ApiError = require("../../error/ApiError");
 
 /**
  * * supprimerSauce :
@@ -18,7 +19,7 @@ module.exports = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
         .then((sauce) => {
             if (sauce.userId != req.session.userId) {
-                return res.status(401).json({ message: "Accès refusé !" });
+                return next(ApiError.unauthorized("Accès refusé"));
             } else {
                 const filename = sauce.imageUrl.split("/images/")[1];
                 fs.unlink(`images/${filename}`, () => {
@@ -28,11 +29,13 @@ module.exports = (req, res, next) => {
                                 message: "Sauce supprimée !",
                             });
                         })
-                        .catch((error) => res.status(401).json({ error }));
+                        .catch((error) => {
+                            return next(ApiError.unauthorized(error));
+                        });
                 });
             }
         })
         .catch((error) => {
-            res.status(500).json({ error });
+            return next(ApiError.internal(error));
         });
 };

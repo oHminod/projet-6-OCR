@@ -1,3 +1,4 @@
+const ApiError = require("../../error/ApiError");
 const SauceModel = require("../../models/sauce");
 
 /**
@@ -15,5 +16,7 @@ const SauceModel = require("../../models/sauce");
 module.exports = (req, res, sauce, message) => {
     SauceModel.updateOne({ _id: req.params.id }, sauce)
         .then(() => res.status(200).json({ message: message }))
-        .catch((error) => res.status(400).json({ error }));
+        .catch((error) => {
+            return next(ApiError.badRequest(error));
+        });
 };

@@ -1,6 +1,7 @@
 const SauceModel = require("../../models/sauce");
 const updateSauce = require("../helpers/updateSauce");
 const fs = require("fs");
+const ApiError = require("../../error/ApiError");
 
 /**
  * * modifierSauce :
@@ -26,7 +27,7 @@ module.exports = (req, res, next) => {
                     sauceDb.userId != req.session.userId ||
                     sauceRequete.userId != req.session.userId
                 ) {
-                    return res.status(401).json({ message: "Accès refusé !" });
+                    return next(ApiError.unauthorized("Accès refusé"));
                 }
                 const filename = sauceDb.imageUrl.split("/images/")[1];
                 fs.unlink(`images/${filename}`, () => {
@@ -40,7 +41,7 @@ module.exports = (req, res, next) => {
                 });
             })
             .catch((error) => {
-                res.status(500).json({ error });
+                return next(ApiError.internal(error));
             });
     } else {
         SauceModel.findOne({ _id: req.params.id })
@@ -49,7 +50,7 @@ module.exports = (req, res, next) => {
                     sauceDb.userId != req.session.userId ||
                     req.body.userId != req.session.userId
                 ) {
-                    return res.status(401).json({ message: "Accès refusé !" });
+                    return next(ApiError.unauthorized("Accès refusé"));
                 }
                 sauce = {
                     ...req.body,
@@ -57,7 +58,7 @@ module.exports = (req, res, next) => {
                 updateSauce(req, res, sauce, "Sauce modifiée !");
             })
             .catch((error) => {
-                res.status(500).json({ error });
+                return next(ApiError.internal(error));
             });
     }
 };

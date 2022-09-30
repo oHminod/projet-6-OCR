@@ -2,6 +2,7 @@ const UserModel = require("../../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cryptojs = require("crypto-js");
+const ApiError = require("../../error/ApiError");
 require("dotenv").config();
 
 /**
@@ -31,17 +32,17 @@ module.exports = (req, res, next) => {
     })
         .then((user) => {
             if (!user) {
-                return res
-                    .status(401)
-                    .json({ message: "Utilisateur non trouvé!" });
+                return next(ApiError.unauthorized("Utilisateur non trouvé!"));
             } else {
                 bcrypt
                     .compare(req.body.password, user.password)
                     .then((valid) => {
                         if (!valid) {
-                            return res
-                                .status(401)
-                                .json({ message: "Mot de passe incorrect !" });
+                            return next(
+                                ApiError.unauthorized(
+                                    "Mot de passe incorrect !"
+                                )
+                            );
                         } else {
                             res.status(200).json({
                                 userId: user._id,
@@ -55,8 +56,12 @@ module.exports = (req, res, next) => {
                             });
                         }
                     })
-                    .catch((error) => res.status(501).json({ error }));
+                    .catch((error) => {
+                        return next(ApiError.internal(error));
+                    });
             }
         })
-        .catch((error) => res.status(500).json({ error }));
+        .catch((error) => {
+            return next(ApiError.internal(error));
+        });
 };

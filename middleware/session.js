@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const ApiError = require("../error/ApiError");
 require("dotenv").config();
 
 /**
@@ -26,6 +27,6 @@ module.exports = (req, res, next) => {
         };
         next();
     } catch (error) {
-        res.status(401).json({ error });
+        return next(ApiError.unauthorized(error));
     }
 };

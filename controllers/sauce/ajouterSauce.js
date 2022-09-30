@@ -1,3 +1,4 @@
+const ApiError = require("../../error/ApiError");
 const SauceModel = require("../../models/sauce");
 
 /**
@@ -27,5 +28,7 @@ module.exports = (req, res, next) => {
     sauce
         .save()
         .then(() => res.status(201).json({ message: "Sauce enregistré !" }))
-        .catch((error) => res.status(402).json({ error }));
+        .catch((error) => {
+            return next(ApiError.badRequest(error));
+        });
 };

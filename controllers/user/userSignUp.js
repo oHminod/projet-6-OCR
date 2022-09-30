@@ -1,6 +1,7 @@
 const UserModel = require("../../models/user");
 const bcrypt = require("bcrypt");
 const cryptojs = require("crypto-js");
+const ApiError = require("../../error/ApiError");
 require("dotenv").config();
 
 /**
@@ -28,5 +29,7 @@ module.exports = async (req, res, next) => {
         .then(() =>
             res.status(201).json({ message: "Utilisateur enregistré !" })
         )
-        .catch((error) => res.status(400).json({ error }));
+        .catch((error) => {
+            return next(ApiError.badRequest(error));
+        });
 };
