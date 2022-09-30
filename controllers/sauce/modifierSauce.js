@@ -1,5 +1,5 @@
-const SauceModel = require("../models/sauce");
-const updateSauce = require("./helpers/updateSauce");
+const SauceModel = require("../../models/sauce");
+const updateSauce = require("../helpers/updateSauce");
 const fs = require("fs");
 
 /**

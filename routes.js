@@ -11,15 +11,15 @@ const { xss } = require("express-xss-sanitizer");
 //     allowedKeys: ["description"],
 // };
 
-const userSignUp = require("./controllers/userSignUp");
-const userLogin = require("./controllers/userLogin");
+const userSignUp = require("./controllers/user/userSignUp");
+const userLogin = require("./controllers/user/userLogin");
 
-const getAllSauces = require("./controllers/getAllSauces");
-const getThisSauce = require("./controllers/getThisSauce");
-const ajouterSauce = require("./controllers/ajouterSauce");
-const modifierSauce = require("./controllers/modifierSauce");
-const likerSauce = require("./controllers/likerSauce");
-const supprimerSauce = require("./controllers/supprimerSauce");
+const getAllSauces = require("./controllers/sauce/getAllSauces");
+const getThisSauce = require("./controllers/sauce/getThisSauce");
+const ajouterSauce = require("./controllers/sauce/ajouterSauce");
+const modifierSauce = require("./controllers/sauce/modifierSauce");
+const likerSauce = require("./controllers/sauce/likerSauce");
+const supprimerSauce = require("./controllers/sauce/supprimerSauce");
 
 /**
  * * Routes utilisateurs :
