@@ -6,8 +6,13 @@ const helmet = require("helmet");
 
 const routes = require("./routes");
 
-const app = express();
-app.use(express.json());
+/**
+ * Piiquante : application web dans laquelle les
+ * utilisateurs peuvent ajouter leurs sauces préférées et
+ * liker ou disliker les sauces ajoutées par les autres.
+ */
+const piiquante = express();
+piiquante.use(express.json());
 
 /**
  * Connexion à la base de données.
@@ -27,7 +32,7 @@ mongoose
 /**
  * Mise en place des Headers
  */
-app.use((req, res, next) => {
+piiquante.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
         "Access-Control-Allow-Headers",
@@ -43,9 +48,9 @@ app.use((req, res, next) => {
 /**
  * Emplacement du dossier images.
  */
-app.use("/images", express.static(path.join(__dirname, "images")));
+piiquante.use("/images", express.static(path.join(__dirname, "images")));
 
-app.use(helmet());
-app.use("/", routes);
+piiquante.use(helmet());
+piiquante.use("/", routes);
 
-module.exports = app;
+module.exports = piiquante;

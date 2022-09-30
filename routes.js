@@ -1,4 +1,7 @@
 const express = require("express");
+/**
+ * Routes vers les contrôleurs pour les utilisateurs et pour les sauces.
+ */
 const router = express.Router();
 const sessionOk = require("./middleware/session");
 const multer = require("./middleware/multer-config");
