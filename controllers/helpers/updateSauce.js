@@ -17,6 +17,6 @@ module.exports = (req, res, sauce, message) => {
     SauceModel.updateOne({ _id: req.params.id }, sauce)
         .then(() => res.status(200).json({ message: message }))
         .catch((error) => {
-            return next(ApiError.badRequest(error));
+            return next(ApiError.badRequest(error.message));
         });
 };

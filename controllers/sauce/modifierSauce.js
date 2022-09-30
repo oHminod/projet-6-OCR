@@ -41,7 +41,7 @@ module.exports = (req, res, next) => {
                 });
             })
             .catch((error) => {
-                return next(ApiError.internal(error));
+                return next(ApiError.internal(error.message));
             });
     } else {
         SauceModel.findOne({ _id: req.params.id })
@@ -58,7 +58,7 @@ module.exports = (req, res, next) => {
                 updateSauce(req, res, sauce, "Sauce modifiée !");
             })
             .catch((error) => {
-                return next(ApiError.internal(error));
+                return next(ApiError.internal(error.message));
             });
     }
 };

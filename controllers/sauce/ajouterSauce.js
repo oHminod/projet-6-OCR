@@ -29,6 +29,6 @@ module.exports = (req, res, next) => {
         .save()
         .then(() => res.status(201).json({ message: "Sauce enregistré !" }))
         .catch((error) => {
-            return next(ApiError.badRequest(error));
+            return next(ApiError.badRequest(error.message));
         });
 };

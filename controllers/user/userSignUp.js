@@ -30,6 +30,6 @@ module.exports = async (req, res, next) => {
             res.status(201).json({ message: "Utilisateur enregistré !" })
         )
         .catch((error) => {
-            return next(ApiError.badRequest(error));
+            return next(ApiError.badRequest(error.message));
         });
 };

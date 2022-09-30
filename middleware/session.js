@@ -27,6 +27,6 @@ module.exports = (req, res, next) => {
         };
         next();
     } catch (error) {
-        return next(ApiError.unauthorized(error));
+        return next(ApiError.unauthorized(error.message));
     }
 };

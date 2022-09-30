@@ -57,11 +57,11 @@ module.exports = (req, res, next) => {
                         }
                     })
                     .catch((error) => {
-                        return next(ApiError.internal(error));
+                        return next(ApiError.internal(error.message));
                     });
             }
         })
         .catch((error) => {
-            return next(ApiError.internal(error));
+            return next(ApiError.internal(error.message));
         });
 };

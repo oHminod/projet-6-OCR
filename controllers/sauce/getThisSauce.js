@@ -17,8 +17,10 @@ const SauceModel = require("../../models/sauce");
  */
 module.exports = (req, res, next) => {
     SauceModel.findOne({ _id: req.params.id })
-        .then((sauce) => res.status(200).json(sauce))
+        .then((sauce) => {
+            res.status(200).json(sauce);
+        })
         .catch((error) => {
-            return next(ApiError.notFound(error));
+            return next(ApiError.notFound(error.message));
         });
 };

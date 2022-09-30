@@ -18,6 +18,6 @@ module.exports = (req, res, next) => {
     SauceModel.find()
         .then((sauces) => res.status(200).json(sauces))
         .catch((error) => {
-            return next(ApiError.badRequest(error));
+            return next(ApiError.badRequest(error.message));
         });
 };

@@ -30,12 +30,12 @@ module.exports = (req, res, next) => {
                             });
                         })
                         .catch((error) => {
-                            return next(ApiError.unauthorized(error));
+                            return next(ApiError.unauthorized(error.message));
                         });
                 });
             }
         })
         .catch((error) => {
-            return next(ApiError.internal(error));
+            return next(ApiError.internal(error.message));
         });
 };
