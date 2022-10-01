@@ -16,11 +16,18 @@ const ApiError = require("./ApiError");
  */
 function errorHandler(err, req, res, next) {
     if (err instanceof ApiError) {
-        res.status(err.code).json(err.message);
-        return;
+        return res.status(err.code).json(err.message);
     }
 
-    res.status(500).json("Erreur interne du serveur");
+    if (err.status && err.message) {
+        return res.status(err.status).json(err.message);
+    }
+
+    if (err.status) {
+        return res.status(err.status).json(err);
+    }
+
+    res.status(500).json(err);
 }
 
 module.exports = errorHandler;

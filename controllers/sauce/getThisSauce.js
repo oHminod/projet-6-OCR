@@ -16,6 +16,10 @@ const SauceModel = require("../../models/sauce");
  * the middleware succeeding the current middleware.
  */
 module.exports = (req, res, next) => {
+    // const err = new Error();
+    // err.status = 403;
+    // err.message = "Interdit";
+    // throw err;
     SauceModel.findOne({ _id: req.params.id })
         .then((sauce) => {
             res.status(200).json(sauce);
