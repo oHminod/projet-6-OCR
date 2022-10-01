@@ -1,4 +1,5 @@
 const express = require("express");
+const sessionOk = require("./middleware/session");
 /**
  * Routes générales.
  * Pour les routes vers les contrôleurs,
@@ -9,6 +10,6 @@ const user = require("./routes/user");
 const sauce = require("./routes/sauce");
 
 router.use("/api/auth/", user);
-router.use("/api/sauces/", sauce);
+router.use("/api/sauces/", sessionOk, sauce);
 
 module.exports = router;
