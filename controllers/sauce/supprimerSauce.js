@@ -30,7 +30,7 @@ module.exports = (req, res, next) => {
                             });
                         })
                         .catch((error) => {
-                            return next(ApiError.unauthorized(error.message));
+                            return next(ApiError.internal(error.message));
                         });
                 });
             }
