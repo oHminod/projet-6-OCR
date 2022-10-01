@@ -3,6 +3,7 @@ const express = require("express");
  * Routes vers les contrôleurs pour les sauces.
  */
 const sauce = express.Router();
+const sessionOk = require("../middleware/session");
 const multer = require("../middleware/multer-config");
 const { xss } = require("express-xss-sanitizer");
 // const options = {
@@ -19,11 +20,11 @@ const supprimerSauce = require("../controllers/sauce/supprimerSauce");
 /**
  * * Routes sauces :
  */
-sauce.get("/", getAllSauces);
-sauce.get("/:id", getThisSauce);
-sauce.post("/", xss(), multer, ajouterSauce);
-sauce.put("/:id", xss(), multer, modifierSauce);
-sauce.post("/:id/like", likerSauce);
-sauce.delete("/:id", supprimerSauce);
+sauce.get("/", sessionOk, getAllSauces);
+sauce.get("/:id", sessionOk, getThisSauce);
+sauce.post("/", sessionOk, xss(), multer, ajouterSauce);
+sauce.put("/:id", sessionOk, xss(), multer, modifierSauce);
+sauce.post("/:id/like", sessionOk, likerSauce);
+sauce.delete("/:id", sessionOk, supprimerSauce);
 
 module.exports = sauce;

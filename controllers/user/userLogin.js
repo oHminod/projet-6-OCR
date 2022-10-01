@@ -62,6 +62,6 @@ module.exports = (req, res, next) => {
             }
         })
         .catch((error) => {
-            return next(ApiError.internal(error.message));
+            return next(ApiError.notFound(error.message));
         });
 };
