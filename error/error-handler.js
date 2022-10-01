@@ -27,6 +27,10 @@ function errorHandler(err, req, res, next) {
         return res.status(err.status).json(err);
     }
 
+    if (err.message) {
+        res.status(500).json(err.message);
+    }
+
     res.status(500).json(err);
 }
 
