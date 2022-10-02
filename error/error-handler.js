@@ -31,6 +31,10 @@ function errorHandler(err, req, res, next) {
         return res.status(500).json(err.message);
     }
 
+    if (err && Object.keys(err).length === 0) {
+        return res.status(500).json("Erreur interne du serveur");
+    }
+
     res.status(500).json(err);
 }
 

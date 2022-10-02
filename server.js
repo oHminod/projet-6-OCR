@@ -47,6 +47,6 @@ server.on("listening", () => {
 });
 
 server.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Piiquante app listening on port ${port}`);
     console.log(`http://localhost:${port}`);
 });
