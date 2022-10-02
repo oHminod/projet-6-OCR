@@ -21,11 +21,7 @@ piiquante.use(express.json());
 const mongoose = require("mongoose");
 mongoose
     .connect(
-        `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@${process.env.DB_URL}/piiquante?retryWrites=true&w=majority`,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        }
+        `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@${process.env.DB_URL}/piiquante`
     )
     .then(() => console.log("Connexion à MongoDB réussie !"))
     .catch(() => console.log("Connexion à MongoDB échouée !"));
