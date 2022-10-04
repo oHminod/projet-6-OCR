@@ -2,6 +2,8 @@
 
 **Piiquante** : application web dans laquelle les utilisateurs peuvent ajouter leurs sauces préférées et liker ou disliker les sauces ajoutées par les autres.
 
+[Le projet front-end "HotTakes" pour cette API se trouve ici.](https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6)
+
 ## Installation
 
 Pour installer les dépendances, dans un terminal à la racine du projet, lancer la commande : `npm install`
