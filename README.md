@@ -6,7 +6,7 @@
 
 Pour installer les dépendances, dans un terminal à la racine du projet, lancer la commande : `npm install`
 
-Créer un fichier nommé `.env` à la racine. Ce fichier doit être de la forme suivante, en prenant garde de respecter la casse des noms de variables et de mettre celles-ci entre guillemets ou apostrophes, la base de donnée est hébergée sur MongoDB Atlas :
+Vérifier la présence ou créer un fichier nommé `.env` à la racine. Ce fichier doit être de la forme suivante, en prenant garde de respecter la casse des noms de variables et de mettre les valeurs de celles-ci entre guillemets ou apostrophes, la connexion à la base de données est configurée pour utiliser MongoDB Atlas :
 
 ```
 PORT: '3000'
@@ -19,6 +19,8 @@ TOKEN: 'token complexe généré à partir d'un générateur de clés'
 Pour rappel la connexion se fait avec une adresse de cette forme :
 
 `mongodb+srv://DB_NAME:DB_PASS@DB_URL/piiquante`
+
+Si le fichier ne contient que la variable du port, il faut configurer MongoDB Atlas pour créer un nouveau projet dédié à l'API, créer un utilisateur et un cluster pour récupérer les variables sur le lien donné par MongoDB Atlas pour connecter son application.
 
 ## Démarrage
 
