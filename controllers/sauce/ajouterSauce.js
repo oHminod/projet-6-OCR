@@ -20,10 +20,6 @@ module.exports = (req, res, next) => {
         imageUrl: `${req.protocol}://${req.get("host")}/images/${
             req.file.filename
         }`,
-        likes: 0,
-        dislikes: 0,
-        usersLiked: [],
-        usersdisLiked: [],
     });
     sauce
         .save()
