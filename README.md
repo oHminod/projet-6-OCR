@@ -4,6 +4,8 @@
 
 [Le projet front-end "HotTakes" pour cette API se trouve ici.](https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6)
 
+**Note pour les évaluateurs :** Les instructions pour le fichier `.env` ne sont valables que pour [le GitHub du projet](https://github.com/oHminod/projet-6-OCR). Il doit être convenablement rempli avec les données du projet MongoDB Atlas de démonstration dans l'archive disponible sur OpenClassRooms.
+
 ## Installation
 
 Pour installer les dépendances, dans un terminal à la racine du projet, lancer la commande : `npm install`
