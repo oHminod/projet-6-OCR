@@ -10,6 +10,8 @@
 
 Pour installer les dépendances, dans un terminal à la racine du projet, lancer la commande : `npm install`
 
+**Créer un dossier `images` à la racine du projet.**
+
 Vérifier la présence ou créer un fichier nommé `.env` à la racine. Ce fichier doit être de la forme suivante, en prenant garde de respecter la casse des noms de variables et de mettre les valeurs de celles-ci entre guillemets ou apostrophes, la connexion à la base de données est configurée pour utiliser MongoDB Atlas :
 
 ```
